@@ -24,8 +24,8 @@ namespace EticaretAPI.Persistance.Repositories
 
         public async Task<bool> AddAsync(T model)
         {
-          var entityEntry =  await Table.AddAsync(model);
-          return entityEntry.State == EntityState.Added;
+            var entityEntry = await Table.AddAsync(model);
+            return entityEntry.State == EntityState.Added;
         }
 
         public async Task<bool> AddRangeAsync(List<T> datas)
@@ -42,7 +42,9 @@ namespace EticaretAPI.Persistance.Repositories
 
         public async Task<bool> RemoveAsync(string id)
         {
-            var entityEntry = await Table.FirstOrDefault(data => data.Id == Guid.Parse(id));
+            var model = await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+            return Remove(model);
+
         }
 
         public bool RemoveRange(List<T> datas)
@@ -51,16 +53,14 @@ namespace EticaretAPI.Persistance.Repositories
             return true;
         }
 
-        public Task<bool> UpdateAsync(T model)
+        public bool Update(T model)
         {
-            throw new NotImplementedException();
+            var entityEntry = Table.Update(model);
+            return entityEntry.State == EntityState.Modified;
         }
-        public Task<int> SaveAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<int> SaveAsync()        
+           => await _context.SaveChangesAsync();
+        
 
-
-       
     }
 }

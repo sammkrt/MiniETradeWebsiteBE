@@ -1,12 +1,14 @@
-﻿using System;
+﻿using EticaretAPI.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EticaretAPI.Application.Repositories.Customer
+namespace EticaretAPI.Application.Repositories.CustomerRepositories
 {
-    internal interface ICustomerReadRepository
+    public interface ICustomerReadRepository : IReadRepository<Customer>
     {
+
     }
 }

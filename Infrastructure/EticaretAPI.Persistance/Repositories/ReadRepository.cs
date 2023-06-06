@@ -1,4 +1,5 @@
 ﻿using EticaretAPI.Application.Repositories;
+using EticaretAPI.Domain.Entities.Common;
 using EticaretAPI.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EticaretAPI.Persistance.Repositories
 {
-    public class ReadRepository<T> : IReadRepository<T> where T : class
+    public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity
     {
         private readonly ETicaretAPIDbContext _context;
 
@@ -29,9 +30,8 @@ namespace EticaretAPI.Persistance.Repositories
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method)
             => await Table.FirstOrDefaultAsync(method);
 
-        public async Task<T> GetByIdAsync(int id)
-            => await Table.FirstOrDefaultAsync(
-       
-
+        public async Task<T> GetByIdAsync(string id)
+            //=> await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));   
+            => await Table.FindAsync(Guid.Parse(id));
     }
 }

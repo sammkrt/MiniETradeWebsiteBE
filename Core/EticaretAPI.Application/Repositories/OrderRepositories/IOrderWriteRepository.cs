@@ -1,12 +1,13 @@
-﻿using System;
+﻿using EticaretAPI.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EticaretAPI.Application.Repositories.Order
+namespace EticaretAPI.Application.Repositories.OrderRepositories
 {
-    internal interface IOrderWriteRepository
+    public interface IOrderWriteRepository : IWriteRepository<Order>
     {
     }
 }

@@ -1,6 +1,12 @@
 ﻿using EticaretAPI.Application.Abstractions;
+using EticaretAPI.Application.Repositories.CustomerRepositories;
+using EticaretAPI.Application.Repositories.OrderRepositories;
+using EticaretAPI.Application.Repositories.ProductRepositories;
 using EticaretAPI.Persistance.Concretes;
 using EticaretAPI.Persistance.Contexts;
+using EticaretAPI.Persistance.Repositories.CustomerRepos;
+using EticaretAPI.Persistance.Repositories.OrderRepos;
+using EticaretAPI.Persistance.Repositories.ProductRepos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +25,12 @@ namespace EticaretAPI.Persistance
         {
             string connectionString = configuration.GetConnectionString("MsSql");
             services.AddDbContext<ETicaretAPIDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
+            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
+            services.AddScoped<IOrderReadRepository, OrderReadRepository>();
+            services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
+            services.AddScoped<IProductReadRepository, ProductReadRepository>();
+            services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
         }
     }
 }
